@@ -3,27 +3,49 @@ import { Router, Request, Response, RequestHandler } from "express";
 const router = Router()
 
 router.get('/',(req: Request,res:Response) => {
-    let user = {
-    nome: 'Fulano',
-    idade: 18
-
+  
+   // res.render('home',{
+   //     nome:'Fulano',
+   //     sobreNome:'de Tal',
+   //     aparecerMensagem:true
+   // })
+   // })
+    let idade: number = 17
+    let mostrarIdade: boolean = false
+    if(idade >= 18){
+        mostrarIdade = true
     }
+   res.render('home',{
+        nome:'Vitor',
+         sobreNome:'Valentino',
+         aparecerMensagem:true,
+         mostrarIdade,
+         idade,
 
-    res.render('home',{
-        user
-    })
-    })
+         produtos :[
+            {titulo: 'mesa', preco: 200},
+            {titulo: 'xampu', preco: 15},
+            {titulo: 'cadeira', preco: 50},
+         ],
+         frases: [
+            ' Só sei que nada sei ',
+            ' A vingança é plena ',
+            ' Quem é essa menina de vermelho '
+         ]
+     })
+     })
 
+     
 
 //quando usamos middleware, colocamos NEXT
 const interferir:RequestHandler = (req,res,next) =>{
-    let logged = true
-    if(logged){
-        next()
-    }else{
-        res.status(404).send("loggin nao permitido")
-    }
-    //console.log("PASSOU PELO MIDDLEWARE")
+   let logged = true
+   if(logged){
+      next()
+   }else{
+      res.status(404).send("loggin nao permitido")
+   }
+    console.log("PASSOU PELO MIDDLEWARE")
 //next significa que liberamos o middleware a pag. contato
 }
 
